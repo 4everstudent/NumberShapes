@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+//// TODO: 07-09-2016 Add try block to handle lack of number insertion  
 public class MainActivity extends AppCompatActivity {
 
     class Number{
         int number;
 
-        public boolean isTriangular(){
+        boolean isTriangular(){
             int x = 0;
             int triangularNumber = 0;
             while(triangularNumber<number){
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        public boolean isSquare(){
+        boolean isSquare(){
 
             double squareRoot = Math.sqrt(number);
             if( squareRoot == Math.floor(squareRoot)){
@@ -71,12 +72,17 @@ public class MainActivity extends AppCompatActivity {
 
         EditText usersNumber = (EditText) findViewById(R.id.userNumber);
 
-        Number myNumber = new Number();
+        if(usersNumber.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(),"Please enter a number ", Toast.LENGTH_LONG).show();
+        }
+        else {
 
-        myNumber.number = Integer.parseInt(usersNumber.getText().toString());
+            Number myNumber = new Number();
 
-        Toast.makeText(getApplicationContext(), myNumber.number +myNumber.isWhat(), Toast.LENGTH_LONG).show();
+            myNumber.number = Integer.parseInt(usersNumber.getText().toString());
 
+            Toast.makeText(getApplicationContext(), myNumber.number + myNumber.isWhat(), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
